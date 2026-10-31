@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10111a">
+<meta name="description" content="Neelakanta Creations - Professional website development services.">
+
+<title>Neelakanta Creations | Websites Made for You</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #10111a;
+  --panel: #191b27;
+  --text: #f5f5fa;
+  --muted: #b6b8c7;
+  --accent: #a78bfa;
+  --accent2: #6ee7d8;
+  --line: rgba(255,255,255,.12);
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(124,88,225,.18), transparent 35rem),
+    var(--bg);
+  color: var(--text);
+  font: 16px/1.6 system-ui, sans-serif;
+}
+
+a { color: inherit; }
+button, input, select, textarea { font: inherit; }
+
+.wrap {
+  width: min(1100px, calc(100% - 36px));
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid var(--line);
+  background: rgba(16,17,26,.92);
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand span { color: var(--accent); }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+nav a:hover { color: white; }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 19px;
+  background: linear-gradient(100deg, var(--accent), #8062e8);
+  color: #15111e;
+  font-weight: 750;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover { filter: brightness(1.1); }
+
+.button.secondary {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+.button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent2);
+  outline-offset: 3px;
+}
+
+.hero { padding: 96px 0 76px; }
+
+.eyebrow {
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+h1 {
+  max-width: 760px;
+  margin: 12px 0;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1.05;
+}
+
+h1 span { color: var(--accent); }
+
+.hero p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 1.12rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+section { padding: 62px 0; }
+
+.section-heading {
+  max-width: 660px;
+  margin-bottom: 26px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.section-heading p, .muted { color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card, .form-card, .payment-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.card { padding: 23px; }
+.card .icon { font-size: 1.6rem; }
+.card h3 { margin: 10px 0 6px; }
+.card p { margin: 0; color: var(--muted); }
+
+.form-card, .payment-card { padding: 25px; }
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field.full { grid-column: 1 / -1; }
+
+label {
+  font-size: .9rem;
+  font-weight: 650;
+}
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 12px 13px;
+  background: #11121b;
+  color: var(--text);
+}
+
+input[readonly] {
+  opacity: 1;
+  cursor: not-allowed;
+  color: var(--accent2);
+  font-weight: 800;
+}
+
+textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+
+input::placeholder, textarea::placeholder { color: #85889a; }
+
+.form-card .button { margin-top: 17px; }
+
+.fine-print {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.payment-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 22px;
+  align-items: center;
+}
+
+.qr-box {
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  border-radius: 14px;
+  background: white;
+  color: #222;
+  text-align: center;
+}
+
+#upiQr {
+  width: 210px;
+  min-height: 210px;
+  display: grid;
+  place-items: center;
+}
+
+#upiQr img, #upiQr canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.qr-box p { margin: 5px 0; font-size: .84rem; }
+
+.payment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.payment-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #11121b;
+}
+
+.payment-confirm input {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.payment-confirm label { cursor: pointer; }
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-links a {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+footer {
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+@media(max-width:760px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .payment-layout { grid-template-columns: 1fr; }
+  .hero { padding-top: 68px; }
+  nav { gap: 12px; }
+  nav a:not(.button) { display: none; }
+}
+
+@media(max-width:520px) {
+  .grid, .fields { grid-template-columns: 1fr; }
+  .qr-box { width: 240px; }
+  .nav { min-height: 64px; }
+  .wrap { width: min(100% - 28px, 1100px); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home">
+      Neelakanta <span>Creations</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="#services">Services</a>
+      <a href="#booking">Booking</a>
+      <a href="#payment">Payment</a>
+      <a class="button" href="#booking">Book a website</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero wrap" id="home">
+  <div class="eyebrow">Creative websites, built around you</div>
+
+  <h1>Your idea deserves <span>a great website.</span></h1>
+
+  <p>
+    Neelakanta Creations designs professional websites for businesses,
+    creators, shops, portfolios, events, and more.
+    Tell us what you need and let's build your online presence.
+  </p>
+
+  <div class="actions">
+    <a class="button" href="#booking">Book your project</a>
+    <a class="button secondary" href="#services">Explore services</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section class="wrap" id="services">
+  <div class="section-heading">
+    <div class="eyebrow">What we create</div>
+    <h2>Websites for every kind of idea</h2>
+    <p>Choose a service and share your requirements.</p>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="icon">🏢</div>
+      <h3>Business websites</h3>
+      <p>Showcase your services, business information, and contact details.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon">🛍️</div>
+      <h3>Shop and product sites</h3>
+      <p>Present your products and help customers find and contact you.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon">🎨</div>
+      <h3>Portfolio websites</h3>
+      <p>Put your work, skills, and personal brand in one polished place.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon">📅</div>
+      <h3>Event websites</h3>
+      <p>Share event details, schedules, and ways for guests to get in touch.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon">📱</div>
+      <h3>Landing pages</h3>
+      <p>Focus your message on a product, campaign, service, or announcement.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon">✨</div>
+      <h3>Custom websites</h3>
+      <p>Have a different idea? Tell us what you have in mind.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- PAYMENT -->
+
+<section class="wrap" id="payment">
+
+  <div class="section-heading">
+    <div class="eyebrow">Mandatory advance payment</div>
+    <h2>Pay ₹2,499 to confirm your project</h2>
+    <p>
+      A fixed advance payment of ₹2,499 is mandatory
+      before submitting your website booking request.
+    </p>
+  </div>
+
+  <div class="payment-card">
+
+    <div class="payment-layout">
+
+      <div>
+        <h3>UPI advance payment</h3>
+
+        <p class="muted">
+          Scan the QR code or open your UPI application.
+          The payment amount is fixed at ₹2,499.
+        </p>
+
+        <div class="field">
+          <label for="amount">Mandatory advance amount</label>
+          <input
+            id="amount"
+            type="number"
+            value="2499"
+            min="2499"
+            max="2499"
+            step="1"
+            readonly
+          >
+        </div>
+
+        <div class="payment-actions">
+
+          <a
+            class="button"
+            id="payLink"
+            href="#payment"
+          >
+            Pay ₹2,499 Now
+          </a>
+
+          <button
+            class="button secondary"
+            id="proofButton"
+            type="button"
+          >
+            Send Payment Screenshot
+          </button>
+
+        </div>
+
+        <p class="fine-print">
+          After completing payment, send your transaction screenshot through WhatsApp.
+        </p>
+
+        <div class="payment-confirm">
+          <input type="checkbox" id="paymentConfirmed">
+
+          <label for="paymentConfirmed">
+            I confirm that I have completed the mandatory ₹2,499 advance payment
+            and will provide the payment screenshot.
+          </label>
+        </div>
+
+      </div>
+
+      <!-- AUTOMATICALLY GENERATED UPI QR CODE -->
+
+      <div class="qr-box">
+
+        <div id="upiQr"></div>
+
+        <p><strong>Neelakanta Creations</strong></p>
+        <p>UPI: 6383377448@yespop</p>
+        <p><strong>Amount: ₹2,499</strong></p>
+        <p>Scan to pay</p>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+
+<section class="wrap" id="booking">
+
+  <div class="section-heading">
+    <div class="eyebrow">Start a project</div>
+    <h2>Book a consultation</h2>
+    <p>
+      Complete your mandatory ₹2,499 advance payment and fill in your details
+      to submit your booking request.
+    </p>
+  </div>
+
+  <div class="form-card">
+
+    <form id="bookingForm">
+
+      <div class="fields">
+
+        <div class="field">
+          <label for="name">Your name *</label>
+          <input
+            id="name"
+            name="name"
+            autocomplete="name"
+            required
+            placeholder="Enter your name"
+          >
+        </div>
+
+        <div class="field">
+          <label for="phone">Your phone number *</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            required
+            placeholder="Enter phone number"
+          >
+        </div>
+
+        <div class="field">
+          <label for="service">Website type *</label>
+
+          <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option>Business website</option>
+            <option>Shop or product website</option>
+            <option>Portfolio website</option>
+            <option>Event website</option>
+            <option>Landing page</option>
+            <option>Custom website</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="date">Preferred consultation date</label>
+          <input id="date" name="date" type="date">
+        </div>
+
+        <div class="field full">
+          <label for="details">Project details</label>
+          <textarea
+            id="details"
+            name="details"
+            placeholder="Tell us about your website, features, and timeline"
+          ></textarea>
+        </div>
+
+      </div>
+
+      <button class="button" type="submit">
+        Confirm Booking on WhatsApp
+      </button>
+
+      <p class="fine-print">
+        Review your booking details and tap Send in WhatsApp.
+      </p>
+
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section class="wrap" id="contact">
+
+  <div class="section-heading">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Let's talk about your website</h2>
+    <p>
+      Contact Neelakanta Creations to discuss your project
+      or ask a question.
+    </p>
+  </div>
+
+  <div class="contact-links">
+
+    <a href="tel:+916383377448">Call: 6383377448</a>
+
+    <a
+      href="https://wa.me/916364527841"
+      target="_blank"
+      rel="noopener"
+    >WhatsApp us</a>
+
+    <a href="mailto:reddygowtham130407@gmail.com">Email us</a>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span>
+    Neelakanta Creations. All rights reserved.
+  </div>
+</footer>
+
+<script>
+
+// BUSINESS PAYMENT DETAILS
+
+const UPI_ID = "6383377448@yespop";
+const PAYEE_NAME = "Neelakanta Creations";
+const WHATSAPP_NUMBER = "916364527841";
+const ADVANCE_AMOUNT = 2499;
+
+
+// ELEMENTS
+
+const amountInput = document.getElementById("amount");
+const payLink = document.getElementById("payLink");
+const paymentConfirmed = document.getElementById("paymentConfirmed");
+
+
+// GENERATE FIXED UPI PAYMENT LINK
+
+function getUpiLink() {
+
+  const params = new URLSearchParams({
+    pa: UPI_ID,
+    pn: PAYEE_NAME,
+    am: ADVANCE_AMOUNT.toFixed(2),
+    cu: "INR"
+  });
+
+  return "upi://pay?" + params.toString();
+}
+
+
+// UPDATE PAYMENT LINK
+
+function updatePaymentOptions() {
+
+  payLink.href = getUpiLink();
+
+}
+
+
+// PAYMENT SCREENSHOT REQUEST
+
+document.getElementById("proofButton").addEventListener("click", function() {
+
+  const message =
+    "Hello Neelakanta Creations, I have paid ₹" +
+    ADVANCE_AMOUNT.toFixed(2) +
+    " as my website project advance. I am attaching my payment screenshot.";
+
+  window.open(
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
+
+});
+
+
+// BOOKING FORM
+
+document.getElementById("bookingForm").addEventListener("submit", function(event) {
+
+  event.preventDefault();
+
+  // CHECK FIXED AMOUNT
+
+  if (Number(amountInput.value) !== ADVANCE_AMOUNT) {
+
+    alert("The mandatory advance payment is ₹2,499.");
+
+    amountInput.value = ADVANCE_AMOUNT;
+
+    document.getElementById("payment").scrollIntoView({
+      behavior: "smooth"
+    });
+
+    return;
+  }
+
+
+  // CHECK PAYMENT CONFIRMATION
+
+  if (!paymentConfirmed.checked) {
+
+    alert("Please complete your ₹2,499 advance payment and confirm it before booking.");
+
+    document.getElementById("payment").scrollIntoView({
+      behavior: "smooth"
+    });
+
+    return;
+  }
+
+
+  // CUSTOMER DETAILS
+
+  const form = new FormData(event.currentTarget);
+
+  const message = [
+
+    "Hello Neelakanta Creations, I want to confirm my website project.",
+
+    "",
+
+    "Name: " + form.get("name"),
+
+    "Phone: " + form.get("phone"),
+
+    "Website type: " + form.get("service"),
+
+    "Preferred consultation date: " +
+    (form.get("date") || "Not specified"),
+
+    "Project details: " +
+    (form.get("details") || "Not provided"),
+
+    "Mandatory Advance Amount: ₹2,499",
+
+    "Payment Status: Customer confirmed payment",
+
+    "",
+
+    "I will attach my payment screenshot."
+
+  ].join("\n");
+
+
+  // OPEN WHATSAPP
+
+  window.open(
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
+
+});
+
+
+// GENERATE UPI QR CODE
+
+function generatePaymentQR() {
+
+  const qrContainer = document.getElementById("upiQr");
+
+  qrContainer.innerHTML = "";
+
+  if (typeof QRCode === "undefined") {
+    qrContainer.textContent = "QR code could not load. Please refresh the page.";
+    return;
+  }
+
+  new QRCode(qrContainer, {
+    text: getUpiLink(),
+    width: 210,
+    height: 210,
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+}
+
+
+// CURRENT YEAR
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+
+// INITIALIZE
+
+amountInput.value = ADVANCE_AMOUNT;
+
+updatePaymentOptions();
+
+generatePaymentQR();
+
+</script>
+
+</body>
+</html>
